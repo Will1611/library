@@ -1,0 +1,132 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  font-size: 62.5%;
+  box-sizing: border-box;
+
+  --raisin-black: #1a1423ff;
+  --dark-purple: #372549ff;
+  --eggplant: #774c60ff;
+  --redwood: #b75d69ff;
+  --pale-dogwood: #eacdc2ff;
+
+  --border: 1px solid var(--eggplant);
+}
+
+body {
+  font-family: "Raleway", sans-serif;
+  background-color: var(--raisin-black);
+  color: var(--pale-dogwood);
+  height: 100vh;
+  position: relative;
+}
+
+.form-overlay {
+  backdrop-filter: blur(10px);
+  background-color: rgba(128, 128, 128, 0.349);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-overlay > div {
+  .form-close {
+    font-size: 2rem;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  background-color: var(--dark-purple);
+  width: 50%;
+  padding: 2rem 3rem 2rem 3rem;
+  border: var(--border);
+}
+
+.form-add {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  .form-row {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .form-row:nth-last-child(2) {
+    justify-content: center;
+    gap: 2rem;
+
+    input[type="checkbox"] {
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+
+  .form-row:last-child {
+    justify-content: center;
+  }
+}
+
+.container {
+  height: 100%;
+  width: 90%;
+  margin: 2rem auto;
+}
+
+nav {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.heading-main {
+  font-size: 6rem;
+}
+
+.placeholder {
+  font-size: 3rem;
+  text-align: center;
+  margin-top: 4rem;
+}
+
+h2 {
+  font-size: 4rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+input {
+  border: var(--border);
+}
+
+button,
+label {
+  color: inherit;
+  font-size: 2rem;
+}
+
+button {
+  padding: 2rem 5rem;
+  background-color: var(--redwood);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  color: var(--eggplant);
+}
+
+.hidden {
+  display: none;
+}
