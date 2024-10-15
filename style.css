@@ -1,19 +1,21 @@
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 
 :root {
   font-size: 62.5%;
-  box-sizing: border-box;
 
   --raisin-black: #1a1423ff;
   --dark-purple: #372549ff;
   --eggplant: #774c60ff;
   --redwood: #b75d69ff;
   --pale-dogwood: #eacdc2ff;
+  --pale-dogwood-light: #fff6f2;
 
   --border: 1px solid var(--eggplant);
+  --border-radius: 10px;
 }
 
 body {
@@ -23,6 +25,8 @@ body {
   height: 100vh;
   position: relative;
 }
+
+/* Overlay */
 
 .form-overlay {
   backdrop-filter: blur(10px);
@@ -34,15 +38,15 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
-.form-overlay > div {
   .form-close {
     font-size: 2rem;
     cursor: pointer;
     font-weight: bold;
   }
+}
 
+.form-overlay > div {
   background-color: var(--dark-purple);
   width: 50%;
   padding: 2rem 3rem 2rem 3rem;
@@ -53,15 +57,22 @@ body {
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  align-items: center;
 
   .form-row {
     display: flex;
     justify-content: space-evenly;
+    border: var(--border);
+    border-radius: var(--border-radius);
+    padding: 2rem 1rem;
+    width: 60%;
   }
 
   .form-row:nth-last-child(2) {
     justify-content: center;
     gap: 2rem;
+    border: none;
+    padding: 0;
 
     input[type="checkbox"] {
       height: 2rem;
@@ -71,13 +82,17 @@ body {
 
   .form-row:last-child {
     justify-content: center;
+    border: none;
+    padding: 0;
   }
 }
 
+/* Main page */
 .container {
   height: 100%;
   width: 90%;
-  margin: 2rem auto;
+  margin: 0 auto;
+  padding-top: 6rem;
 }
 
 nav {
@@ -107,6 +122,24 @@ h2 {
 
 input {
   border: var(--border);
+  border-radius: var(--border-radius);
+  padding-left: 8px;
+  width: 50%;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+}
+
+select {
+  width: 50%;
+  text-align: center;
+}
+
+select:active {
+  text-align: left;
+  outline: none;
 }
 
 button,
@@ -119,12 +152,12 @@ button {
   padding: 2rem 5rem;
   background-color: var(--redwood);
   border: none;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   cursor: pointer;
 }
 
 button:hover {
-  color: var(--eggplant);
+  color: var(--pale-dogwood-light);
 }
 
 .hidden {
