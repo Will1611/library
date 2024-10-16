@@ -12,9 +12,10 @@ const myLibrary = [
 ];
 
 const btnAdd = document.querySelector(".btn-add");
+const btnSubmit = document.querySelector(".btn-submit");
+const btnReset = document.querySelector(".btn-reset");
 const formOverlay = document.querySelector(".form-overlay");
 const formClose = document.querySelector(".form-close");
-const btnSubmit = document.querySelector(".btn-submit");
 const placeholder = document.querySelector(".placeholder");
 
 const inputAuthor = document.getElementById("author");
@@ -46,14 +47,15 @@ function addBookToLibrary() {
   );
 
   myLibrary.push(book);
-  console.log(myLibrary);
 }
 
 // Refactor code to work with myLibrary
-
 function appendBookCard() {
   const bookCard = document.createElement("div");
+  const bookActions = document.createElement("div");
+
   bookCard.classList.add("book-card" /*"hidden" */);
+  bookActions.classList.add("book-actions");
 
   for (let i = 1; i <= 6; i++) {
     const bookObjKey = inputs[i - 1].id;
@@ -76,8 +78,21 @@ function appendBookCard() {
     data.textContent = myLibrary[myLibrary.length - 1][bookObjKey];
     col.appendChild(data);
   }
+  const span = document.createElement("span");
+  span.textContent = "Actions: ";
+  const btnDelete = document.createElement("button");
+  btnDelete.textContent = "Delete book";
+  const btnRead = document.createElement("button");
+  btnRead.textContent = "Change read status";
+  span.appendChild(btnDelete);
+  span.appendChild(btnRead);
+  bookActions.appendChild(span);
+
   document.querySelector(".main").appendChild(bookCard);
+  document.querySelector(".main").appendChild(bookActions);
 }
+
+// appendBookCard();
 
 function showLibrary() {}
 
@@ -107,4 +122,19 @@ btnSubmit.addEventListener("click", (event) => {
 
   addBookToLibrary();
   appendBookCard();
+  resetForm();
+});
+
+btnReset.addEventListener("click", () => {
+  const books = Array.from(document.querySelectorAll(".book-card"));
+  const allBookActions = Array.from(document.querySelectorAll(".book-actions"));
+  myLibrary.length = 0;
+  for (let book of books) {
+    document.querySelector(".main").removeChild(book);
+  }
+  for (let div of allBookActions) {
+    document.querySelector(".main").removeChild(div);
+  }
+
+  placeholder.classList.remove("hidden");
 });
