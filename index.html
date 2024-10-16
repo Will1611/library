@@ -21,13 +21,7 @@
           <h2>Add a new book:</h2>
           <div class="form-row">
             <label for="author">Author:</label>
-            <input
-              type="text"
-              id="author"
-              name="author"
-              class="input-author"
-              required
-            />
+            <input type="text" id="author" name="author" class="form-input" />
           </div>
           <div class="form-row">
             <label for="title">Title:</label>
@@ -35,7 +29,7 @@
               type="text"
               id="title"
               name="title"
-              class="input-title"
+              class="form-input"
               required
             />
           </div>
@@ -45,13 +39,13 @@
               type="number"
               id="pages"
               name="pages"
-              class="input-pages"
+              class="form-input"
               required
             />
           </div>
           <div class="form-row">
             <label for="genre">Genre:</label>
-            <select name="genre" id="genre" class="input-genre" required>
+            <select name="genre" id="genre" class="form-input" required>
               <option value="" default>--Please choose a genre--</option>
               <optgroup label="Fiction">
                 <option value="Romance">Romance</option>
@@ -89,7 +83,7 @@
               type="number"
               id="year"
               name="year"
-              class="input-year"
+              class="form-input"
               required
             />
           </div>
@@ -99,7 +93,7 @@
               type="checkbox"
               id="read"
               name="read"
-              class="input-read"
+              class="form-input"
               checked
             />
           </div>
@@ -117,32 +111,32 @@
         </nav>
       </header>
 
-      <main>
+      <main class="main">
         <h2 class="placeholder">Click the button to add a book...</h2>
         <!-- <div class="book-card">
           <div class="col">
-            <span class="show-data">Author:</span>
-            <span class="data data-author">George Orwell</span>
+            <span class="show-data show-author">Author:</span>
+            <span class="data data-author"></span>
           </div>
           <div class="col">
-            <span class="show-data">Title:</span>
-            <span class="data data-title">1984</span>
+            <span class="show-data show-title">Title:</span>
+            <span class="data data-title"></span>
           </div>
           <div class="col">
-            <span class="show-data">Pages:</span>
-            <span class="data data-pages">328</span>
+            <span class="show-data show-pages">Pages:</span>
+            <span class="data data-pages"></span>
           </div>
           <div class="col">
-            <span class="show-data">Genre:</span>
-            <span class="data data-genre">Other</span>
+            <span class="show-data show-genre">Genre:</span>
+            <span class="data data-genre"></span>
           </div>
           <div class="col">
-            <span class="show-data">Year:</span>
-            <span class="data data-year">1949</span>
+            <span class="show-data show-year">Year:</span>
+            <span class="data data-year"></span>
           </div>
           <div class="col">
-            <span class="show-data">Read:</span>
-            <span class="data data-read">✅</span>
+            <span class="show-data show-read">Read:</span>
+            <span class="data data-read"></span>
           </div>
         </div> -->
       </main>
