@@ -152,6 +152,11 @@ nav {
     font-size: 6rem;
   }
 
+  .heading-main span {
+    font-size: 5rem;
+    margin-left: 3rem;
+  }
+
   .nav-btns {
     display: flex;
     gap: 3rem;
@@ -188,6 +193,7 @@ main {
 
   .show-data {
     font-weight: 200;
+    margin-bottom: 1rem;
   }
 
   .data {
@@ -198,7 +204,7 @@ main {
 .book-actions {
   display: flex;
   width: 75%;
-  margin: auto auto 6rem auto;
+  margin: auto auto 8rem auto;
   justify-content: center;
 }
 

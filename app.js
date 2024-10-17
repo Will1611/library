@@ -1,19 +1,11 @@
 "use strict";
 
-const myLibrary = [
-  // {
-  //   author: "J.R.R Tolkien",
-  //   title: "The Hobbit",
-  //   pages: 5000,
-  //   genre: "Fantasy",
-  //   year: 1952,
-  //   read: false,
-  // },
-];
+const myLibrary = [];
 
 const btnAdd = document.querySelector(".btn-add");
 const btnSubmit = document.querySelector(".btn-submit");
 const btnReset = document.querySelector(".btn-reset");
+
 const formOverlay = document.querySelector(".form-overlay");
 const formClose = document.querySelector(".form-close");
 const placeholder = document.querySelector(".placeholder");
@@ -24,10 +16,12 @@ const inputPages = document.getElementById("pages");
 const inputGenre = document.getElementById("genre");
 const inputYear = document.getElementById("year");
 const inputRead = document.getElementById("read");
-
 const inputs = Array.from(document.querySelectorAll(".form-input"));
 
-function Book(author, title, pages, genre, year, read) {
+const elMain = document.querySelector(".main");
+
+function Book(id, author, title, pages, genre, year, read) {
+  this.id = id;
   this.author = author;
   this.title = title;
   this.pages = pages;
@@ -38,24 +32,23 @@ function Book(author, title, pages, genre, year, read) {
 
 function addBookToLibrary() {
   const book = new Book(
+    myLibrary.length + 1,
     inputAuthor.value,
     inputTitle.value,
     inputPages.value,
     inputGenre.value,
     inputYear.value,
-    inputRead.checked
+    inputRead.checked ? `\u2705` : `\u274c`
   );
 
   myLibrary.push(book);
+  // console.log(myLibrary);
 }
 
-// Refactor code to work with myLibrary
 function appendBookCard() {
   const bookCard = document.createElement("div");
-  const bookActions = document.createElement("div");
-
-  bookCard.classList.add("book-card" /*"hidden" */);
-  bookActions.classList.add("book-actions");
+  bookCard.classList.add("book-card");
+  bookCard.setAttribute("data-id", myLibrary.length);
 
   for (let i = 1; i <= 6; i++) {
     const bookObjKey = inputs[i - 1].id;
@@ -78,30 +71,68 @@ function appendBookCard() {
     data.textContent = myLibrary[myLibrary.length - 1][bookObjKey];
     col.appendChild(data);
   }
+
+  elMain.appendChild(bookCard);
+}
+
+function appendActions() {
+  const bookActions = document.createElement("div");
+  bookActions.classList.add("book-actions");
+  bookActions.setAttribute("data-id", myLibrary.length);
+
   const span = document.createElement("span");
   span.textContent = "Actions: ";
+
   const btnDelete = document.createElement("button");
-  btnDelete.textContent = "Delete book";
+  btnDelete.classList.add("btn-delete");
   const btnRead = document.createElement("button");
+  btnRead.classList.add("btn-read");
+  btnDelete.textContent = "Delete book";
   btnRead.textContent = "Change read status";
+
+  btnDelete.addEventListener("click", () => {
+    console.log("Delete");
+  });
+  btnRead.addEventListener("click", () => {
+    console.log("Read");
+  });
+
   span.appendChild(btnDelete);
   span.appendChild(btnRead);
   bookActions.appendChild(span);
-
-  document.querySelector(".main").appendChild(bookCard);
-  document.querySelector(".main").appendChild(bookActions);
+  elMain.appendChild(bookActions);
 }
 
-// appendBookCard();
+function resetLibrary() {
+  const books = Array.from(document.querySelectorAll(".book-card"));
+  const allBookActions = Array.from(document.querySelectorAll(".book-actions"));
+  myLibrary.length = 0;
+  for (let book of books) {
+    elMain.removeChild(book);
+  }
+  for (let div of allBookActions) {
+    elMain.removeChild(div);
+  }
 
-function showLibrary() {}
+  placeholder.classList.remove("hidden");
+}
 
-function resetForm() {
+function showLibrary() {
+  addBookToLibrary();
+  appendBookCard();
+  appendActions();
+}
+
+function closeForm() {
   inputs.forEach((input) => {
     input.value = "";
     if (input.type === "checkbox") input.checked = true;
   });
+
+  formOverlay.classList.add("hidden");
 }
+
+function changeReadStatus() {}
 
 // Event listeners
 
@@ -109,32 +140,15 @@ btnAdd.addEventListener("click", () => {
   formOverlay.classList.remove("hidden");
 });
 
-formClose.addEventListener("click", () => {
-  resetForm();
-
-  formOverlay.classList.add("hidden");
-});
+formClose.addEventListener("click", closeForm);
 
 btnSubmit.addEventListener("click", (event) => {
   event.preventDefault();
   placeholder.classList.add("hidden");
   formOverlay.classList.add("hidden");
 
-  addBookToLibrary();
-  appendBookCard();
-  resetForm();
+  showLibrary();
+  closeForm();
 });
 
-btnReset.addEventListener("click", () => {
-  const books = Array.from(document.querySelectorAll(".book-card"));
-  const allBookActions = Array.from(document.querySelectorAll(".book-actions"));
-  myLibrary.length = 0;
-  for (let book of books) {
-    document.querySelector(".main").removeChild(book);
-  }
-  for (let div of allBookActions) {
-    document.querySelector(".main").removeChild(div);
-  }
-
-  placeholder.classList.remove("hidden");
-});
+btnReset.addEventListener("click", resetLibrary);
