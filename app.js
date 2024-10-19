@@ -10,12 +10,6 @@ const formOverlay = document.querySelector(".form-overlay");
 const formClose = document.querySelector(".form-close");
 const placeholder = document.querySelector(".placeholder");
 
-const inputAuthor = document.getElementById("author");
-const inputTitle = document.getElementById("title");
-const inputPages = document.getElementById("pages");
-const inputGenre = document.getElementById("genre");
-const inputYear = document.getElementById("year");
-const inputRead = document.getElementById("read");
 const inputs = Array.from(document.querySelectorAll(".form-input"));
 
 const elMain = document.querySelector(".main");
@@ -33,12 +27,12 @@ function Book(id, author, title, pages, genre, year, read) {
 function addBookToLibrary() {
   const book = new Book(
     myLibrary.length + 1,
-    inputAuthor.value,
-    inputTitle.value,
-    inputPages.value,
-    inputGenre.value,
-    inputYear.value,
-    inputRead.checked ? `\u2705` : `\u274c`
+    document.getElementById("author").value,
+    document.getElementById("title").value,
+    document.getElementById("pages").value,
+    document.getElementById("genre").value,
+    document.getElementById("year").value,
+    document.getElementById("read").checked ? `\u2705` : `\u274c`
   );
 
   myLibrary.push(book);
@@ -74,7 +68,18 @@ function appendBookCard() {
   elMain.appendChild(bookCard);
 }
 
-function appendActions() {
+function deleteCard(event, array) {
+  array.forEach((card) => {
+    if (
+      event.target.parentElement.parentElement.attributes["data-id"].value ===
+      card.attributes["data-id"].value
+    ) {
+      elMain.removeChild(card);
+    }
+  });
+}
+
+function appendBookActions() {
   // Append card to body
   const bookActions = document.createElement("div");
   bookActions.classList.add("book-actions");
@@ -99,26 +104,8 @@ function appendActions() {
 
   // Refactor btnDelete
   btnDelete.addEventListener("click", (event) => {
-    const allBookCards = Array.from(document.querySelectorAll(".book-card"));
-    const allBookActions = Array.from(
-      document.querySelectorAll(".book-actions")
-    );
-    allBookCards.forEach((card) => {
-      if (
-        event.target.parentElement.parentElement.attributes["data-id"].value ===
-        card.attributes["data-id"].value
-      ) {
-        elMain.removeChild(card);
-      }
-    });
-    allBookActions.forEach((card) => {
-      if (
-        event.target.parentElement.parentElement.attributes["data-id"].value ===
-        card.attributes["data-id"].value
-      ) {
-        elMain.removeChild(card);
-      }
-    });
+    deleteCard(event, Array.from(document.querySelectorAll(".book-card")));
+    deleteCard(event, Array.from(document.querySelectorAll(".book-actions")));
 
     myLibrary = myLibrary.filter((book) => {
       return (
@@ -164,10 +151,8 @@ function resetLibrary() {
   placeholder.classList.remove("hidden");
 }
 
-function showLibrary() {
-  addBookToLibrary();
-  appendBookCard();
-  appendActions();
+function showForm() {
+  formOverlay.classList.remove("hidden");
 }
 
 function closeForm() {
@@ -179,19 +164,21 @@ function closeForm() {
   formOverlay.classList.add("hidden");
 }
 
-function changeReadStatus() {}
+function showLibrary() {
+  placeholder.classList.add("hidden");
+  addBookToLibrary();
+  appendBookCard();
+  appendBookActions();
+}
 
 // Event listeners
 
-btnAdd.addEventListener("click", () => {
-  formOverlay.classList.remove("hidden");
-});
+btnAdd.addEventListener("click", showForm);
 
 formClose.addEventListener("click", closeForm);
 
 btnSubmit.addEventListener("click", (event) => {
   event.preventDefault();
-  placeholder.classList.add("hidden");
   formOverlay.classList.add("hidden");
 
   showLibrary();
