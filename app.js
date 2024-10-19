@@ -105,7 +105,7 @@ function appendActions() {
     );
     allBookCards.forEach((card) => {
       if (
-        btnDelete.parentElement.parentElement.attributes["data-id"].value ===
+        event.target.parentElement.parentElement.attributes["data-id"].value ===
         card.attributes["data-id"].value
       ) {
         elMain.removeChild(card);
@@ -113,7 +113,7 @@ function appendActions() {
     });
     allBookActions.forEach((card) => {
       if (
-        btnDelete.parentElement.parentElement.attributes["data-id"].value ===
+        event.target.parentElement.parentElement.attributes["data-id"].value ===
         card.attributes["data-id"].value
       ) {
         elMain.removeChild(card);
