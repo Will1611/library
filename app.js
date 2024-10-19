@@ -1,6 +1,6 @@
 "use strict";
 
-const myLibrary = [];
+let myLibrary = [];
 
 const btnAdd = document.querySelector(".btn-add");
 const btnSubmit = document.querySelector(".btn-submit");
@@ -42,7 +42,6 @@ function addBookToLibrary() {
   );
 
   myLibrary.push(book);
-  // console.log(myLibrary);
 }
 
 function appendBookCard() {
@@ -76,6 +75,7 @@ function appendBookCard() {
 }
 
 function appendActions() {
+  // Append card to body
   const bookActions = document.createElement("div");
   bookActions.classList.add("book-actions");
   bookActions.setAttribute("data-id", myLibrary.length);
@@ -90,17 +90,64 @@ function appendActions() {
   btnDelete.textContent = "Delete book";
   btnRead.textContent = "Change read status";
 
-  btnDelete.addEventListener("click", () => {
-    console.log("Delete");
-  });
-  btnRead.addEventListener("click", () => {
-    console.log("Read");
-  });
-
   span.appendChild(btnDelete);
   span.appendChild(btnRead);
   bookActions.appendChild(span);
   elMain.appendChild(bookActions);
+
+  // Add functionality to buttons
+
+  // Refactor btnDelete
+  btnDelete.addEventListener("click", (event) => {
+    const allBookCards = Array.from(document.querySelectorAll(".book-card"));
+    const allBookActions = Array.from(
+      document.querySelectorAll(".book-actions")
+    );
+    allBookCards.forEach((card) => {
+      if (
+        btnDelete.parentElement.parentElement.attributes["data-id"].value ===
+        card.attributes["data-id"].value
+      ) {
+        elMain.removeChild(card);
+      }
+    });
+    allBookActions.forEach((card) => {
+      if (
+        btnDelete.parentElement.parentElement.attributes["data-id"].value ===
+        card.attributes["data-id"].value
+      ) {
+        elMain.removeChild(card);
+      }
+    });
+
+    myLibrary = myLibrary.filter((book) => {
+      return (
+        book.id !==
+        Number(
+          btnDelete.parentElement.parentElement.attributes["data-id"].value
+        )
+      );
+    });
+
+    if (myLibrary.length === 0) {
+      placeholder.classList.remove("hidden");
+    }
+    console.log(myLibrary);
+  });
+  btnRead.addEventListener("click", () => {
+    const dataRead = Array.from(document.querySelectorAll(".data-read"));
+
+    dataRead.forEach((span) => {
+      if (
+        btnRead.parentElement.parentElement.attributes["data-id"].value ===
+        span.parentElement.parentElement.attributes["data-id"].value
+      ) {
+        span.textContent === `\u2705`
+          ? (span.textContent = `\u274c`)
+          : (span.textContent = `\u2705`);
+      }
+    });
+  });
 }
 
 function resetLibrary() {
