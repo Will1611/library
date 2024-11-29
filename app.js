@@ -1,3 +1,5 @@
+// Refactor
+
 "use strict";
 
 let myLibrary = [];
@@ -14,15 +16,19 @@ const inputs = Array.from(document.querySelectorAll(".form-input"));
 
 const elMain = document.querySelector(".main");
 
-function Book(id, author, title, pages, genre, year, read) {
-  this.id = id;
-  this.author = author;
-  this.title = title;
-  this.pages = pages;
-  this.genre = genre;
-  this.year = year;
-  this.read = read;
+class Book {
+  constructor(id, author, title, pages, genre, year, read) {
+    this.id = id;
+    this.author = author;
+    this.title = title;
+    this.pages = pages;
+    this.genre = genre;
+    this.year = year;
+    this.read = read;
+  }
 }
+
+// function Book() {}
 
 function addBookToLibrary() {
   const book = new Book(
